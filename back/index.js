@@ -36,7 +36,7 @@ app.use(jwt({
 
 // socket.io
 const io = require('socket.io').listen(server);
-const deviceHandler = require('./streams/device');
+const deviceHandler = require('./stream/device');
 
 app.use(async (ctx, next) => {
   ctx.io = io;
@@ -55,12 +55,12 @@ io.on('connection', (socket) => {
 });
 
 // for frontend
-const alert = io.of('/streams/alert');
-const log = io.of('/streams/log');
-const map = io.of('/streams/map');
+const alert = io.of('/stream/alert');
+const log = io.of('/stream/log');
+const map = io.of('/stream/map');
 
 // for logging device
-const device = io.of('/streams/device');
+const device = io.of('/stream/device');
 
 let alertNumber = 0;
 let logNumber = 0;

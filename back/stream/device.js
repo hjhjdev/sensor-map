@@ -210,7 +210,7 @@ exports.create = async ({ data, io }) => {
   })
   .then((res) => {
     // emit to device socket stream
-    io.of('/streams/log').to(device.deviceId).emit('newData', {
+    io.of('/stream/log').to(device.deviceId).emit('newData', {
       sensorId: res.sensor.sensorId,
       isAnalog: res.sensor.isAnalog,
       measureModeWarnLevel: res.measureModeWarnLevel,
@@ -220,28 +220,28 @@ exports.create = async ({ data, io }) => {
       data: res.value
     });
 
-    // emit analog data to socket streams
+    // emit analog data to socket stream
     if (res.sensor.isAnalog === true) {
       if (res.measureModeWarnLevel > 0) {
         // emit warnlevel > 0 data to role registered users and admins
         registeredUsers.forEach((userId) => {
-          io.of('/streams/alert').to(userId).emit('newAlert', res);
+          io.of('/stream/alert').to(userId).emit('newAlert', res);
         });
         adminUsers.forEach((userId) => {
-          io.of('/streams/alert').to(userId).emit('newAlert', res);
+          io.of('/stream/alert').to(userId).emit('newAlert', res);
         });
       }
   
       // emit every data to role registered users and admins
       registeredUsers.forEach((userId) => {
-        io.of('/streams/map').to(userId).emit('newData', {
+        io.of('/stream/map').to(userId).emit('newData', {
           deviceId: res.device.deviceId,
           measureModeValue: res.measureModeValue,
           measureModeWarnLevel: res.measureModeWarnLevel
         });
       });
       adminUsers.forEach((userId) => {
-        io.of('/streams/map').to(userId).emit('newData', {
+        io.of('/stream/map').to(userId).emit('newData', {
           deviceId: res.device.deviceId,
           measureModeValue: res.measureModeValue,
           measureModeWarnLevel: res.measureModeWarnLevel

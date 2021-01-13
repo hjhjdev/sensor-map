@@ -221,7 +221,7 @@ const mutations = {
   },
   CONNECT_LOG_SOCKET(state, deviceId) {
     state.io = io(
-      'http://127.0.0.1:3000/streams/log', {
+      `${process.env.VUE_APP_STREAM_URI}/log`, {
         query: {
           deviceId: deviceId
         },

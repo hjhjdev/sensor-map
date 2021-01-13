@@ -53,7 +53,7 @@ const mutations = {
   },
   CONNECT_ALERT_SOCKET(state, userId) {
     state.io = io(
-      'http://127.0.0.1:3000/streams/alert', {
+      `${process.env.VUE_APP_STREAM_URI}/alert`, {
         query: {
           userId: userId
         },
