@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "date-fns": "^2.15.0",
+    "date-fns-tz": "^1.0.10",
+    "request": "^2.88.2",
+    "socket.io-client": "^2.3.1"
+  },
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js"
+  },
+  "license": "MIT"
+}
