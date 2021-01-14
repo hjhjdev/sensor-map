@@ -27,7 +27,8 @@ let cc = streamHelper('CCCCCCCCCCCC');
 
 function streamHelper(macAddress) {
   return io(
-    'http://127.0.0.1:3000/stream/device', {
+    //'http://127.0.0.1:3000/stream/device', {
+      'https://test.ranthread.com/stream/device', {
       query: {
         macAddress: macAddress
       }

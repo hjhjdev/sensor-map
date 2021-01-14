@@ -153,7 +153,7 @@
 
 <script>
 import { formatISO, format, zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz'
-import { addHours, addDays, parseISO } from 'date-fns'
+import { addHours, addDays, parseISO, differenceInDays } from 'date-fns'
 import { mapState } from 'vuex'
 import axios from 'axios'
 
@@ -209,10 +209,20 @@ export default {
       return format(new Date(), 'yyyy-MM-dd');
     },
     maxEndDate () {
-      if (this.startDate == '')
+      if (this.startDate == '') {
         return '2000-01-01';
-      else
-        return format(addDays(parseISO(this.startDate), 9), 'yyyy-MM-dd');
+      } else {
+        // add 9 days to startDate
+        let added = addDays(parseISO(this.startDate), 9);
+        // then check diff from maxStartDate()
+        let diff = differenceInDays(parseISO(this.maxStartDate()), parseISO(this.startDate));
+        // if diff > 9, return (add 9 days to startDate)
+        if (diff > 9)
+          return format(added, 'yyyy-MM-dd');
+        // else, return maxStartDate()
+        else
+          return this.maxStartDate()
+      }
     },
     download() {
       
