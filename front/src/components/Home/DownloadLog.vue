@@ -225,8 +225,6 @@ export default {
       }
     },
     download() {
-      
-      if (this.startDate )
       this.search.start = parseISO(this.startDate).toISOString();
       this.search.end = addDays(parseISO(this.endDate), 1).toISOString();
 
