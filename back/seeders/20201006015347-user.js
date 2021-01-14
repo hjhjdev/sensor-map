@@ -19,19 +19,16 @@ module.exports = {
     }], {});
 
     await queryInterface.bulkInsert('sensors', [{
-
+      sensorId: 1,
+      name: '온도',
+      isAnalog: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
 
     await queryInterface.bulkInsert('sensors', [{
-      
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }], {});
-    
-    await queryInterface.bulkInsert('sensors', [{
-      
+      sensorId: 2,
+      name: '습도',
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
