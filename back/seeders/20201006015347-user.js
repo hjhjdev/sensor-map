@@ -29,6 +29,7 @@ module.exports = {
     await queryInterface.bulkInsert('sensors', [{
       sensorId: 2,
       name: '습도',
+      isAnalog: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});
