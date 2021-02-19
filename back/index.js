@@ -20,8 +20,7 @@ const server = app.listen(port, () => {
 
 app.use(bodyParser());
 app.use(cors({
-  credentials: true,
-  
+  credentials: true
 }));
 
 // jwt authentication
@@ -47,10 +46,15 @@ router.use('/api', api.routes());
 app.use(router.routes()).use(router.allowedMethods());
 
 
-io.on('connection', (socket) => {
-  //console.log("user connected")
+io.on('connection', async (socket) => {
+  console.log("user connected " + socket.id);
+
+  socket.on('event_name', (data) => {
+    console.log(data);
+  })
+
   socket.on('disconnect', () => {
-      //console.log('user disconnected');
+      console.log('user disconnected' + socket.id);
   });
 });
 
