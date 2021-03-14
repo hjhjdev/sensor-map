@@ -238,7 +238,7 @@ export default {
       ],
       macAddressRules: [
         v => !!v || 'MAC 주소는 필수입니다.',
-        v => /^[A-Z]*$/.test(v) || '대문자 12자리를 입력해야 합니다.',
+        v => /^[A-Z0-9]*$/.test(v) || '대문자 12자리를 입력해야 합니다.',
         v => (v && v.length) == 12 || '12자리를 입력해야 합니다.'
       ],
       companyNameRules: [
