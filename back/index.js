@@ -49,10 +49,6 @@ app.use(router.routes()).use(router.allowedMethods());
 io.on('connection', async (socket) => {
   console.log("user connected " + socket.id);
 
-  socket.on('event_name', (data) => {
-    console.log(data);
-  })
-
   socket.on('disconnect', () => {
       console.log('user disconnected' + socket.id);
   });
@@ -96,9 +92,9 @@ log.on('connection', async (socket) => {
 });
 
 map.on('connection', async (socket) => {
-  console.log("map stream receiver connected to room " + socket.handshake.query.userId)
+  console.log("map stream receiver connected to room " + socket.handshake.query.userId);
   console.log("map receiver connected count: ", ++mapNumber);
-  // let client join the room by deviceId
+  // let client join the room by userId
   await socket.join(socket.handshake.query.userId);
 
   socket.on('disconnect', () => {
@@ -109,10 +105,10 @@ map.on('connection', async (socket) => {
 
 
 device.on('connection', async (socket) => {
-  console.log('device, log sender connected from room ' + socket.handshake.query.macAddress);
+  console.log('device, log sender connect request from device' + socket.handshake.query.macAddress);
   console.log("device, log sender connected count: ", ++deviceNumber);
 
-  await deviceHandler.join(socket);
+  await deviceHandler.join({ socket, io });
 
   socket.on('newData', (data) => {
     deviceHandler.create({ data, io })
