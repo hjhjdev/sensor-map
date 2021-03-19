@@ -3,7 +3,9 @@ const { Op } = require('sequelize');
 const addMinutes = require('date-fns/addMinutes');
 const { Sequelize } = require('../models');
 
-exports.join = async (socket) => {
+exports.join = async ({ socket, io }) => {
+  let device;
+
   try {
     await models.device.findOne({
       where: {
@@ -12,19 +14,27 @@ exports.join = async (socket) => {
     }).then((res) => {
       if (!res) {
         throw Error('no device');
-      } else {
-        // let client join the room by deviceId
-        socket.join(res.deviceId);
-        console.log("device, log sender connected to room " + res.deviceId);
       }
+
+      device = res;
+    });
+
+    // let client join the room by deviceId
+    await socket.join(device.deviceId, () => {
+      console.log("device, log sender connected to room " + device.deviceId);
+      io.of('/stream/device').to(device.deviceId).emit('deviceInfo', {
+        "1": device.deviceId,
+        "2": device.sensorOneId,
+        "3": device.sensorTwoId,
+        "4": device.sensorThreeId
+      });
     });
   } catch (err) {
-    return err;
+    console.log(err)
   }
 }
 
 // receive data from device
-// device alrea
 exports.create = async ({ data, io }) => {
   const {
     macAddress,
