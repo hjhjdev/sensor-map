@@ -26,7 +26,10 @@ exports.join = async ({ socket, io }) => {
         "1": device.deviceId,
         "2": device.sensorOneId,
         "3": device.sensorTwoId,
-        "4": device.sensorThreeId
+        "4": device.sensorThreeId,
+        "5": device.analogNormal,
+        "6": device.analogWarning,
+        "7": device.analogDanger
       });
     });
   } catch (err) {
